@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wróżba Online</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #fafafa; max-width: 600px; margin: auto; }
+    h1 { text-align: center; }
+    .lang-switcher { text-align: right; margin-bottom: 1rem; }
+    .lang-switcher button { margin-left: 5px; }
+    .card { background: white; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, textarea, button { width: 100%; margin-top: 1rem; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid #ccc; }
+    button { background: black; color: white; cursor: pointer; }
+    footer { font-size: 0.8rem; color: #555; margin-top: 2rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <button onclick="setLang('pl')">PL</button>
+    <button onclick="setLang('ru')">RU</button>
+    <button onclick="setLang('uk')">UA</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+
+  <div class="card">
+    <h1 id="title">Wróżba Online</h1>
+    <p id="desc">Zadaj jedno pytanie, a otrzymasz indywidualną odpowiedź po ułożeniu pasjansa. Koszt: 1 euro.</p>
+
+    <form action="https://secure.przelewy24.pl/trnRequest" method="POST">
+      <label id="email-label">Twój email:</label>
+      <input type="email" name="email" required />
+
+      <label id="question-label">Twoje pytanie:</label>
+      <textarea name="question" rows="4" required></textarea>
+
+      <!-- Dummy P24 integration values, replace with your real data -->
+      <input type="hidden" name="p24_merchant_id" value="YOUR_MERCHANT_ID" />
+      <input type="hidden" name="p24_pos_id" value="YOUR_POS_ID" />
+      <input type="hidden" name="p24_amount" value="100" />
+      <input type="hidden" name="p24_currency" value="EUR" />
+      <input type="hidden" name="p24_description" value="Wróżba online - jedno pytanie" />
+      <input type="hidden" name="p24_country" value="PL" />
+      <input type="hidden" name="p24_session_id" value="SESSION123" />
+      <input type="hidden" name="p24_url_return" value="https://wrozba-site.vercel.app/dziekujemy-pl.html" />
+      <input type="hidden" name="p24_url_status" value="https://wrozba-site.vercel.app/status" />
+
+      <button type="submit" id="pay-btn">Zapłać 1€ i otrzymaj odpowiedź</button>
+    </form>
+  </div>
+
+  <footer>
+    <p id="disclaimer">Usługa ma charakter rozrywkowy. Brak zwrotów. Odpowiedź otrzymasz e-mailem w ciągu 24h.</p>
+  </footer>
+
+  <script>
+    const translations = {
+      pl: {
+        title: "Wróżba Online",
+        desc: "Zadaj jedno pytanie, a otrzymasz indywidualną odpowiedź po ułożeniu pasjansa. Koszt: 1 euro.",
+        emailLabel: "Twój email:",
+        questionLabel: "Twoje pytanie:",
+        payBtn: "Zapłać 1€ i otrzymaj odpowiedź",
+        disclaimer: "Usługa ma charakter rozrywkowy. Brak zwrotów. Odpowiedź otrzymasz e-mailem w ciągu 24h."
+      },
+      ru: {
+        title: "Онлайн гадание",
+        desc: "Задай один вопрос и получи индивидуальный ответ на основе пасьянса. Стоимость: 1 евро.",
+        emailLabel: "Твой email:",
+        questionLabel: "Твой вопрос:",
+        payBtn: "Оплатить 1€ и получить ответ",
+        disclaimer: "Услуга развлекательная. Возвраты не предусмотрены. Ответ придёт на email в течение 24 часов."
+      },
+      uk: {
+        title: "Онлайн ворожіння",
+        desc: "Задай одне питання і отримай відповідь після розкладу пасьянсу. Вартість: 1 євро.",
+        emailLabel: "Твій email:",
+        questionLabel: "Твоє питання:",
+        payBtn: "Сплатити 1€ і отримати відповідь",
+        disclaimer: "Послуга розважальна. Повернення коштів немає. Відповідь надійде на email протягом 24 годин."
+      },
+      en: {
+        title: "Online Fortune Reading",
+        desc: "Ask one question and receive a personalized answer after a solitaire spread. Cost: 1 euro.",
+        emailLabel: "Your email:",
+        questionLabel: "Your question:",
+        payBtn: "Pay 1€ and get your answer",
+        disclaimer: "Entertainment service. No refunds. Answer will be sent by email within 24h."
+      }
+    };
+
+    function setLang(lang) {
+      document.getElementById("title").innerText = translations[lang].title;
+      document.getElementById("desc").innerText = translations[lang].desc;
+      document.getElementById("email-label").innerText = translations[lang].emailLabel;
+      document.getElementById("question-label").innerText = translations[lang].questionLabel;
+      document.getElementById("pay-btn").innerText = translations[lang].payBtn;
+      document.getElementById("disclaimer").innerText = translations[lang].disclaimer;
+    }
+  </script>
+</body>
+</html>
